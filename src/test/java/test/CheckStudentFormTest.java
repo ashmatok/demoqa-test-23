@@ -11,19 +11,20 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by anton on 06.11.2023
  */
-public class CheckStudentForm {
+public class CheckStudentFormTest {
 
     @BeforeAll
     public static void beforeAll(){
         Configuration.browser="chrome";
-        Configuration.browserSize="1920*1080";
+        Configuration.browserSize="1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.holdBrowserOpen=true;
+        Configuration.holdBrowserOpen=false;
+        Configuration.pageLoadStrategy="eager";
+
     }
 
     @Test
      void testFillForm(){
-        Configuration.pageLoadStrategy="eager";
 
         open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
@@ -32,7 +33,7 @@ public class CheckStudentForm {
         $("#firstName").setValue("Anton");
         $("#lastName").setValue("Pavlovich");
         $("#userEmail").setValue("anton@gmail.com");
-        $(byText("Male")).click();
+        $("label.custom-control-label[for='gender-radio-3']").click();
         $("#userNumber").setValue("9123456789");
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("May");
@@ -40,7 +41,7 @@ public class CheckStudentForm {
         $(".react-datepicker__day--013").click();
         $("#subjectsInput").setValue("Chemistry").pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("[for='hobbies-checkbox-3']").click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
         $("#uploadPicture").uploadFromClasspath("pic1.jpeg");
         $("#currentAddress").setValue("Default adress city street");
         $("#state").click();
@@ -51,7 +52,7 @@ public class CheckStudentForm {
 
         $(".table-responsive").shouldHave(text("Anton Pavlovich"));
         $(".table-responsive").shouldHave(text("anton@gmail.com"));
-        $(".table-responsive").shouldHave(text("Male"));
+        $(".table-responsive").shouldHave(text("Other"));
         $(".table-responsive").shouldHave(text("9123456789"));
         $(".table-responsive").shouldHave(text("Chemistry"));
         $(".table-responsive").shouldHave(text("Sports, Music"));
