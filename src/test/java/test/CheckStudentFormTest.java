@@ -33,7 +33,7 @@ public class CheckStudentFormTest {
         $("#firstName").setValue("Anton");
         $("#lastName").setValue("Pavlovich");
         $("#userEmail").setValue("anton@gmail.com");
-        $("label.custom-control-label[for='gender-radio-3']").click();
+        $("#genterWrapper").$(byText("Other")).click();
         $("#userNumber").setValue("9123456789");
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("May");
